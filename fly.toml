@@ -1,0 +1,105 @@
+# fly.toml file generated for unifi on 2023-03-12T17:26:27-07:00
+
+app = "unifi"
+kill_signal = "SIGINT"
+kill_timeout = 5
+primary_region = "sea"
+processes = []
+
+[env]
+
+[experimental]
+  auto_rollback = true
+
+[[services]]
+  http_checks = []
+  internal_port = 8443
+  processes = ["app"]
+  protocol = "tcp"
+  script_checks = []
+  [services.concurrency]
+    hard_limit = 25
+    soft_limit = 20
+    type = "connections"
+
+  [[services.ports]]
+    force_https = true
+    handlers = ["http"]
+    port = 80
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443
+
+  [[services.tcp_checks]]
+    grace_period = "1s"
+    interval = "15s"
+    restart_limit = 0
+    timeout = "2s"
+
+[[services]]
+  internal_port = 3478
+  protocol = "udp"
+
+  [[services.ports]]
+    port = "3478"
+
+[[services]]
+  internal_port = 10001
+  protocol = "udp"
+
+  [[services.ports]]
+    port = "10001"
+
+[[services]]
+  internal_port = 1900
+  protocol = "udp"
+
+  [[services.ports]]
+    port = "1900"
+
+[[services]]
+  internal_port = 5514
+  protocol = "udp"
+
+  [[services.ports]]
+    port = "5514"
+
+[[services]]
+  internal_port = 5000
+  protocol = "tcp"
+
+  [[services.ports]]
+    port = "5000"
+
+[[services]]
+  internal_port = 8080
+  protocol = "tcp"
+
+  [[services.ports]]
+    port = "8080"
+
+[[services]]
+  internal_port = 8843
+  protocol = "tcp"
+
+  [[services.ports]]
+    port = "8843"
+
+[[services]]
+  internal_port = 8880
+  protocol = "tcp"
+
+  [[services.ports]]
+    port = "8880"
+
+ [[services]]
+  internal_port = 6789
+  protocol = "tcp"
+
+  [[services.ports]]
+    port = "6789"
+
+[mounts]
+  source="unifi_config"
+  destination="/config"
